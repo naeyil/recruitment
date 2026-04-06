@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 const BRANCHES = [
@@ -92,7 +92,15 @@ function Dropdown({
   );
 }
 
-export default function ApplyPage() {
+export default function ApplyPageWrapper() {
+  return (
+    <Suspense>
+      <ApplyPage />
+    </Suspense>
+  );
+}
+
+function ApplyPage() {
   const searchParams = useSearchParams();
   const source = searchParams.get("source") || "direct";
   const branchParam = searchParams.get("branch") || "";
